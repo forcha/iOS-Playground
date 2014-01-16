@@ -126,38 +126,6 @@
                             [self.mainView addSubview:self.imageViewBack];
                         }];
     }
-    
-    /*
-     CGAffineTransform transform = _fullscreen ?
-     CGAffineTransformMakeScale(.9, .9) : CGAffineTransformIdentity;
-     
-     [UIView transitionWithView:self.view
-     duration:0.25
-     options:UIViewAnimationOptionCurveEaseInOut
-     animations:^{
-     self.mainView.transform = transform;
-     if (_fullscreen) {
-     [self.view addSubview:self.transparentBackgroundView];
-     self.imageViewBack.center = CGPointMake(CGRectGetMidX(self.transparentBackgroundView.bounds),
-     CGRectGetMidY(self.transparentBackgroundView.bounds));
-     CGRect bounds = self.imageViewBack.bounds;
-     bounds.size = CGSizeMake(bounds.size.width * 2, bounds.size.height * 2);
-     self.imageViewBack.bounds = bounds;
-     self.mainView.alpha = 0.3;
-     } else {
-     _imageView.frame = _originalImageViewFrame;
-     self.mainView.alpha = 1.0;
-     }
-     }
-     completion:^(BOOL finished) {
-     if (!_fullscreen) {
-     [self setNeedsStatusBarAppearanceUpdate];
-     [self.imageViewBack removeFromSuperview];
-     [self.transparentBackgroundView removeFromSuperview];
-     [self.mainView addSubview:self.imageViewBack];
-     }
-     }];
-     */
 }
 
 
