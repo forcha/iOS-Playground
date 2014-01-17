@@ -53,7 +53,7 @@
     [super didReceiveMemoryWarning];
 }
 
-#pragma mark Status Bar
+#pragma mark - Status Bar
 
 - (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
     return UIStatusBarAnimationSlide;
@@ -63,7 +63,7 @@
     return _fullscreen;
 }
 
-#pragma mark Actions
+#pragma mark - Actions
 
 - (IBAction)toogleFullscreen:(id)sender {
     [self p_toogleFullscreen];
@@ -81,13 +81,13 @@
     }
 }
 
-#pragma mark UIScrollViewDelegate
+#pragma mark - UIScrollViewDelegate
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
     return [_transparentBackgroundView viewWithTag:999];
 }
 
-#pragma mark Private
+#pragma mark - Private
 
 - (void)p_toogleFullscreen {
     _fullscreen = !_fullscreen;

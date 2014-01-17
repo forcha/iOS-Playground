@@ -22,6 +22,8 @@
 		B05C01D818876953000A29E5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B05C01D618876953000A29E5 /* InfoPlist.strings */; };
 		B05C01DA18876953000A29E5 /* ImageViewerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B05C01D918876953000A29E5 /* ImageViewerTests.m */; };
 		B05C01E418876998000A29E5 /* apple_logo_color.png in Resources */ = {isa = PBXBuildFile; fileRef = B05C01E318876998000A29E5 /* apple_logo_color.png */; };
+		B05C01E71887C11F000A29E5 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B05C01E61887C11F000A29E5 /* ImageViewController.m */; };
+		B05C01EA18889BD5000A29E5 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B05C01E918889BD5000A29E5 /* MainViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,10 @@
 		B05C01D718876953000A29E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B05C01D918876953000A29E5 /* ImageViewerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageViewerTests.m; sourceTree = "<group>"; };
 		B05C01E318876998000A29E5 /* apple_logo_color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apple_logo_color.png; sourceTree = "<group>"; };
+		B05C01E51887C11F000A29E5 /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
+		B05C01E61887C11F000A29E5 /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
+		B05C01E818889BD5000A29E5 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		B05C01E918889BD5000A29E5 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +125,10 @@
 				B05C01C018876953000A29E5 /* Main.storyboard */,
 				B05C01C318876953000A29E5 /* ViewController.h */,
 				B05C01C418876953000A29E5 /* ViewController.m */,
+				B05C01E818889BD5000A29E5 /* MainViewController.h */,
+				B05C01E918889BD5000A29E5 /* MainViewController.m */,
+				B05C01E51887C11F000A29E5 /* ImageViewController.h */,
+				B05C01E61887C11F000A29E5 /* ImageViewController.m */,
 				B05C01C618876953000A29E5 /* Images.xcassets */,
 				B05C01B518876953000A29E5 /* Supporting Files */,
 			);
@@ -255,6 +265,8 @@
 			files = (
 				B05C01C518876953000A29E5 /* ViewController.m in Sources */,
 				B05C01BF18876953000A29E5 /* AppDelegate.m in Sources */,
+				B05C01E71887C11F000A29E5 /* ImageViewController.m in Sources */,
+				B05C01EA18889BD5000A29E5 /* MainViewController.m in Sources */,
 				B05C01BB18876953000A29E5 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
