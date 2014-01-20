@@ -8,12 +8,15 @@
 
 #import "MainViewController.h"
 #import "ImageViewController.h"
+#import "ImageViewTransitioningDelegate.h"
 
 @interface MainViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *mainView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+
+@property (strong, nonatomic) ImageViewTransitioningDelegate * imageViewTD;
 
 @end
 
@@ -45,6 +48,7 @@
                   action:@selector(panImage:)];
     [_imageView addGestureRecognizer:panGR];
 
+    self.imageViewTD = [ImageViewTransitioningDelegate new];
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,6 +70,9 @@
 
 - (IBAction)toogleFullscreen:(id)sender {
     ImageViewController * vc = [ImageViewController new];
+    vc.modalPresentationStyle = UIModalPresentationCustom;
+    vc.modalPresentationCapturesStatusBarAppearance = YES;
+    vc.transitioningDelegate = _imageViewTD;
     vc.imageToDisplay = _imageView;
     [self presentViewController:vc animated:YES completion:^{
         NSLog(@"finished presenting VC");

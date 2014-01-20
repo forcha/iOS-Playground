@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		58C50EF2BAA61DA781EC6987 /* MyScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58C50C7204C1556895E2FFC5 /* MyScrollView.m */; };
+		B00F9A58188CC3510076B7C9 /* ImageViewAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = B00F9A57188CC3510076B7C9 /* ImageViewAnimatedTransitioning.m */; };
+		B00F9A5B188CC9600076B7C9 /* ImageViewTransitioningDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B00F9A5A188CC9600076B7C9 /* ImageViewTransitioningDelegate.m */; };
 		B05C01AF18876953000A29E5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B05C01AE18876953000A29E5 /* Foundation.framework */; };
 		B05C01B118876953000A29E5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B05C01B018876953000A29E5 /* CoreGraphics.framework */; };
 		B05C01B318876953000A29E5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B05C01B218876953000A29E5 /* UIKit.framework */; };
@@ -37,6 +40,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		58C50C7204C1556895E2FFC5 /* MyScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScrollView.m; sourceTree = "<group>"; };
+		58C50F96138EDFDC9314C2E2 /* MyScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScrollView.h; sourceTree = "<group>"; };
+		B00F9A56188CC3510076B7C9 /* ImageViewAnimatedTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewAnimatedTransitioning.h; sourceTree = "<group>"; };
+		B00F9A57188CC3510076B7C9 /* ImageViewAnimatedTransitioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewAnimatedTransitioning.m; sourceTree = "<group>"; };
+		B00F9A59188CC9600076B7C9 /* ImageViewTransitioningDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewTransitioningDelegate.h; sourceTree = "<group>"; };
+		B00F9A5A188CC9600076B7C9 /* ImageViewTransitioningDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewTransitioningDelegate.m; sourceTree = "<group>"; };
 		B05C01AB18876953000A29E5 /* ImageViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B05C01AE18876953000A29E5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B05C01B018876953000A29E5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -87,6 +96,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		58C508D7A536D1F05F021D4B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				58C50C7204C1556895E2FFC5 /* MyScrollView.m */,
+				58C50F96138EDFDC9314C2E2 /* MyScrollView.h */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		B05C01A218876953000A29E5 = {
 			isa = PBXGroup;
 			children = (
@@ -129,8 +147,13 @@
 				B05C01E918889BD5000A29E5 /* MainViewController.m */,
 				B05C01E51887C11F000A29E5 /* ImageViewController.h */,
 				B05C01E61887C11F000A29E5 /* ImageViewController.m */,
+				B00F9A56188CC3510076B7C9 /* ImageViewAnimatedTransitioning.h */,
+				B00F9A57188CC3510076B7C9 /* ImageViewAnimatedTransitioning.m */,
 				B05C01C618876953000A29E5 /* Images.xcassets */,
 				B05C01B518876953000A29E5 /* Supporting Files */,
+				B00F9A59188CC9600076B7C9 /* ImageViewTransitioningDelegate.h */,
+				B00F9A5A188CC9600076B7C9 /* ImageViewTransitioningDelegate.m */,
+				58C508D7A536D1F05F021D4B /* View */,
 			);
 			path = ImageViewer;
 			sourceTree = "<group>";
@@ -265,9 +288,12 @@
 			files = (
 				B05C01C518876953000A29E5 /* ViewController.m in Sources */,
 				B05C01BF18876953000A29E5 /* AppDelegate.m in Sources */,
+				B00F9A58188CC3510076B7C9 /* ImageViewAnimatedTransitioning.m in Sources */,
+				B00F9A5B188CC9600076B7C9 /* ImageViewTransitioningDelegate.m in Sources */,
 				B05C01E71887C11F000A29E5 /* ImageViewController.m in Sources */,
 				B05C01EA18889BD5000A29E5 /* MainViewController.m in Sources */,
 				B05C01BB18876953000A29E5 /* main.m in Sources */,
+				58C50EF2BAA61DA781EC6987 /* MyScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -476,6 +502,7 @@
 				B05C01DF18876953000A29E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B05C01E018876953000A29E5 /* Build configuration list for PBXNativeTarget "ImageViewerTests" */ = {
 			isa = XCConfigurationList;
@@ -484,6 +511,7 @@
 				B05C01E218876953000A29E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

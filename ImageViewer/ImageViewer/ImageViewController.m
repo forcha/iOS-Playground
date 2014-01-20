@@ -7,32 +7,14 @@
 //
 
 #import "ImageViewController.h"
+#import "MyScrollView.h"
 
-@interface ImageViewController () <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIScrollViewDelegate>
+@interface ImageViewController () <UIScrollViewDelegate>
 
 @end
 
 @implementation ImageViewController
 
--(id)initWithNibName:(NSString *)nib bundle:(NSBundle *)bundle {
-    self = [super initWithNibName:nib bundle:bundle];
-    if (self) {
-        self.modalPresentationStyle = UIModalPresentationCustom;
-        self.modalPresentationCapturesStatusBarAppearance = YES;
-        self.transitioningDelegate = self;
-    }
-    return self;
-}
-
--(id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        self.modalPresentationStyle = UIModalPresentationCustom;
-        self.modalPresentationCapturesStatusBarAppearance = YES;
-        self.transitioningDelegate = self;
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -41,11 +23,46 @@
     UIScrollView * scrollView =
         [self p_createTrasnsparentBackgroundViewWithImage:_imageToDisplay];
     [self.view addSubview:scrollView];
-//    
-//    UITapGestureRecognizer * tapGR = [[UITapGestureRecognizer alloc]
-//                                      initWithTarget:self
-//                                      action:@selector(dismiss:)];
-//    [self.view addGestureRecognizer:tapGR];
+
+    //NOTE: Added call to beginGeneratingDeviceOrientationNotifications but tested without it and worked
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceRotated:) name:UIDeviceOrientationDidChangeNotification object:nil];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
+    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+}
+
+static const float kRotationAnimationDuration = 0.25;
+
+- (void)deviceRotated:(id)info {
+    UIScrollView * scrollView = [[self.view subviews] firstObject];
+    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    UIView * imageView = [scrollView viewWithTag:998];
+//    NSLog(@"imageView.transform = %@", NSStringFromCGAffineTransform(imageView.transform));
+
+    if (deviceOrientation == UIDeviceOrientationPortrait) {
+        NSLog(@"UIDeviceOrientationPortrait");
+        [UIView animateWithDuration:kRotationAnimationDuration animations:^{
+            imageView.transform = CGAffineTransformIdentity;
+        }];
+    } else if (deviceOrientation == UIDeviceOrientationLandscapeLeft) {
+        NSLog(@"UIDeviceOrientationLandscapeLeft");
+        [UIView animateWithDuration:kRotationAnimationDuration animations:^{
+            imageView.transform = CGAffineTransformMakeRotation(90 * M_PI/180.0);
+        }];
+    } else if (deviceOrientation == UIDeviceOrientationLandscapeRight) {
+        NSLog(@"UIDeviceOrientationLandscapeRight");
+        [UIView animateWithDuration:kRotationAnimationDuration animations:^{
+            imageView.transform = CGAffineTransformMakeRotation(- 90 * M_PI/180.0);
+        }];
+    }
+}
+
+- (void)updateViewConstraints {
+    [super updateViewConstraints];
+    NSLog(@"updateViewContraints");
 }
 
 - (void)didReceiveMemoryWarning
@@ -56,81 +73,6 @@
 
 - (BOOL)prefersStatusBarHidden {
     return YES;
-}
-
-- (NSUInteger)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskAllButUpsideDown;
-}
-
-#pragma mark - UIViewControllerTransitioningDelegate
-
--(id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
-    return self;
-}
-
--(id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
-    return self;
-}
-
-#pragma mark - UIViewControllerAnimatedTransitioning
-
-static const float kDuration = 0.25f;
-
--(NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
-    return kDuration;
-}
-
--(void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
-    NSLog(@"ImageViewController animateTransition");
-    UIViewController* vc1 = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController* vc2 = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView* con = [transitionContext containerView];
-    UIView* v1 = vc1.view;
-    UIView* v2 = vc2.view;
-    
-    NSLog(@"v1 = %@", v1);
-    NSLog(@"v2 = %@", v2);
-    NSLog(@"con subviews = %@", [con subviews]);
-    
-    if (v2 == self.view) {
-        v2.frame = con.bounds;
-        v2.alpha = 0.0;
-        CGAffineTransform scale = CGAffineTransformMakeScale(0.5,0.5);
-        v2.transform = CGAffineTransformConcat(scale, v2.transform);
-        [con addSubview: v2];
-        v1.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
-        
-        UIView * mainView = [[v1 subviews] firstObject];
-        
-        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-        [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
-            v2.alpha = 1.0;
-            v2.transform = CGAffineTransformConcat(CGAffineTransformInvert(scale), v2.transform);
-
-            mainView.alpha = 0.4;
-            mainView.transform = CGAffineTransformConcat(CGAffineTransformMakeScale(.9, .9), mainView.transform);
-        } completion:^(BOOL finished) {
-            NSLog(@"completion before");
-            [transitionContext completeTransition:YES];
-            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-            NSLog(@"completion after");
-        }];
-    } else {
-        UIView * mainView = [[v2 subviews] firstObject];
-        
-        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-        [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
-            v1.alpha = 0.0;
-            v1.transform = CGAffineTransformScale(v1.transform,0.5,0.5);
-            
-            mainView.alpha = 1.0;
-            mainView.transform = CGAffineTransformConcat(CGAffineTransformInvert(CGAffineTransformMakeScale(.9, .9)), mainView.transform);
-        } completion:^(BOOL finished) {
-            [v1 removeFromSuperview];
-            [transitionContext completeTransition:YES];
-            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-        }];
-    }
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -145,25 +87,65 @@ static const float kDuration = 0.25f;
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)zoomInOut:(UIGestureRecognizer *)gestureRecognizer {
+    UIScrollView* sv = (UIScrollView *)gestureRecognizer.view;
+    if (sv.zoomScale < 1)
+        [sv setZoomScale:1 animated:YES];
+    else if (sv.zoomScale < sv.maximumZoomScale)
+        [sv setZoomScale:sv.maximumZoomScale animated:YES];
+    else
+        [sv setZoomScale:sv.minimumZoomScale animated:YES];
+}
+
 #pragma mark - Private
 
 - (UIScrollView *)p_createTrasnsparentBackgroundViewWithImage:(UIImageView *)imageView {
-    UIScrollView * view = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-    view.opaque = NO;
-    view.minimumZoomScale = 1.0;
-    view.maximumZoomScale = 2.0;
-    view.delegate = self;
+    UIScrollView *scrollView = [[MyScrollView alloc] initWithFrame:self.view.bounds];
+    scrollView.opaque = NO;
+    scrollView.minimumZoomScale = 1.0;
+    scrollView.maximumZoomScale = 2.0;
+    scrollView.delegate = self;
     UITapGestureRecognizer * tapGR = [[UITapGestureRecognizer alloc]
-                                      initWithTarget:self
-                                      action:@selector(dismiss:)];
-    [view addGestureRecognizer:tapGR];
-    
+            initWithTarget:self
+                    action:@selector(dismiss:)];
+    [scrollView addGestureRecognizer:tapGR];
+
+    UITapGestureRecognizer * doubleTapGR = [[UITapGestureRecognizer alloc]
+            initWithTarget:self
+                    action:@selector(zoomInOut:)];
+    doubleTapGR.numberOfTapsRequired = 2;
+    [scrollView addGestureRecognizer:doubleTapGR];
+    [tapGR requireGestureRecognizerToFail:doubleTapGR];
+
+    UIView * contentView = [[UIView alloc] initWithFrame:scrollView.bounds];
+    contentView.tag = 999;
+    [scrollView addSubview:contentView];
+
     UIImageView * viewerImageView = [[UIImageView alloc] initWithImage:imageView.image];
-    viewerImageView.tag = 999;
-    viewerImageView.contentMode = UIViewContentModeScaleAspectFit;
-    viewerImageView.frame = view.bounds;
-    [view addSubview:viewerImageView];
-    return view;
+    viewerImageView.tag = 998;
+    viewerImageView.frame = [self p_frameForImageView:viewerImageView inView:contentView];
+    viewerImageView.center = CGPointMake(CGRectGetMidX(contentView.bounds), CGRectGetMidY(contentView.bounds));
+
+    [contentView addSubview:viewerImageView];
+    return scrollView;
+}
+
+- (CGRect)p_frameForImageView:(UIImageView *)imageView inView:(UIView *)view {
+    CGSize kMaxImageViewSize = view.bounds.size;
+
+    CGSize imageSize = imageView.image.size;
+    CGFloat aspectRatio = imageSize.width / imageSize.height;
+    //CGRect frame = imageView.frame;
+    CGRect frame = CGRectMake(.0,.0,.0,.0);
+    if (kMaxImageViewSize.width / aspectRatio <= kMaxImageViewSize.height) {
+        frame.size.width = kMaxImageViewSize.width;
+        frame.size.height = frame.size.width / aspectRatio;
+    } else {
+        frame.size.height = kMaxImageViewSize.height;
+        frame.size.width = frame.size.height * aspectRatio;
+    }
+
+    return frame;
 }
 
 @end
