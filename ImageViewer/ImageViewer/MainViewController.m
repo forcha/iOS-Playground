@@ -73,7 +73,7 @@
     vc.modalPresentationStyle = UIModalPresentationCustom;
     vc.modalPresentationCapturesStatusBarAppearance = YES;
     vc.transitioningDelegate = _imageViewTD;
-    vc.imageToDisplay = _imageView;
+    vc.imageToDisplay = _imageView.image;
     [self presentViewController:vc animated:YES completion:^{
         NSLog(@"finished presenting VC");
     }];

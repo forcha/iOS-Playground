@@ -50,12 +50,12 @@ static const float kRotationAnimationDuration = 0.25;
     } else if (deviceOrientation == UIDeviceOrientationLandscapeLeft) {
         NSLog(@"UIDeviceOrientationLandscapeLeft");
         [UIView animateWithDuration:kRotationAnimationDuration animations:^{
-            imageView.transform = CGAffineTransformMakeRotation(90 * M_PI/180.0);
+            imageView.transform = CGAffineTransformMakeRotation((CGFloat) (90.0 * M_PI/180.0));
         }];
     } else if (deviceOrientation == UIDeviceOrientationLandscapeRight) {
         NSLog(@"UIDeviceOrientationLandscapeRight");
         [UIView animateWithDuration:kRotationAnimationDuration animations:^{
-            imageView.transform = CGAffineTransformMakeRotation(- 90 * M_PI/180.0);
+            imageView.transform = CGAffineTransformMakeRotation((CGFloat) (- 90 * M_PI/180.0));
         }];
     }
 }
@@ -99,7 +99,7 @@ static const float kRotationAnimationDuration = 0.25;
 
 #pragma mark - Private
 
-- (UIScrollView *)p_createTrasnsparentBackgroundViewWithImage:(UIImageView *)imageView {
+- (UIScrollView *)p_createTrasnsparentBackgroundViewWithImage:(UIImage *)image {
     UIScrollView *scrollView = [[MyScrollView alloc] initWithFrame:self.view.bounds];
     scrollView.opaque = NO;
     scrollView.minimumZoomScale = 1.0;
@@ -121,7 +121,7 @@ static const float kRotationAnimationDuration = 0.25;
     contentView.tag = 999;
     [scrollView addSubview:contentView];
 
-    UIImageView * viewerImageView = [[UIImageView alloc] initWithImage:imageView.image];
+    UIImageView * viewerImageView = [[UIImageView alloc] initWithImage:image];
     viewerImageView.tag = 998;
     viewerImageView.frame = [self p_frameForImageView:viewerImageView inView:contentView];
     viewerImageView.center = CGPointMake(CGRectGetMidX(contentView.bounds), CGRectGetMidY(contentView.bounds));

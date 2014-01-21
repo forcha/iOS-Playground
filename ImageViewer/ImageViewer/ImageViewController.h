@@ -10,6 +10,6 @@
 
 @interface ImageViewController : UIViewController
 
-@property (nonatomic, strong) UIImageView * imageToDisplay;
+@property (nonatomic, strong) UIImage * imageToDisplay;
 
 @end
