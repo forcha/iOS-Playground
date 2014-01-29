@@ -8,7 +8,13 @@
 
 #import "ViewController.h"
 
-@interface ViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate>
+@interface ViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate> {
+    UIEdgeInsets _oldContentInset;
+    UIEdgeInsets _oldIndicatorInset;
+    CGPoint _oldOffset;
+}
+
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property (weak, nonatomic) IBOutlet UILabel *textLabel;
 
@@ -31,6 +37,8 @@
 @property (strong, nonatomic) NSString * seletedFontFamily;
 
 @property (strong, nonatomic) NSLayoutConstraint * fontNameLabelCenterYConstraint;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentViewWidthConstraint;
 
 @end
 
@@ -60,12 +68,80 @@
                                            attribute:NSLayoutAttributeCenterY
                                           multiplier:1
                                             constant:0];
+    
+
+    NSNotificationCenter * defaultCenter = [NSNotificationCenter defaultCenter];
+    [defaultCenter addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [defaultCenter addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Layout
+
+- (void)updateViewConstraints {
+    if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
+        _contentViewWidthConstraint.constant = [UIScreen mainScreen].bounds.size.height;
+    } else {
+        _contentViewWidthConstraint.constant = [UIScreen mainScreen].bounds.size.width;
+    }
+
+    [super updateViewConstraints];
+}
+
+#pragma mark - Notifications
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    self->_oldContentInset = self.scrollView.contentInset;
+    self->_oldIndicatorInset = self.scrollView.scrollIndicatorInsets;
+    self->_oldOffset = self.scrollView.contentOffset;
+    NSDictionary *userInfo = [notification userInfo];
+    CGRect r = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    r = [self.scrollView convertRect:r fromView:nil];
+    CGRect f = self.textField.frame;
+    CGFloat y =
+            CGRectGetMaxY(f) + r.size.height -
+                    self.scrollView.bounds.size.height + 5;
+    if (r.origin.y < CGRectGetMaxY(f)) {
+        NSNumber* duration = userInfo[UIKeyboardAnimationDurationUserInfoKey];
+        NSNumber* curve = userInfo[UIKeyboardAnimationCurveUserInfoKey];
+        [UIView animateWithDuration:duration.floatValue
+                              delay:0
+                            options:curve.integerValue << 16
+
+        animations:^{
+            CGRect b = self.scrollView.bounds;
+            b.origin = CGPointMake(0, y);
+            self.scrollView.bounds = b;
+        } completion: nil];
+    }
+    UIEdgeInsets insets = self.scrollView.contentInset;
+    insets.bottom = r.size.height;
+    self.scrollView.contentInset = insets;
+    insets = self.scrollView.scrollIndicatorInsets;
+    insets.bottom = r.size.height;
+    self.scrollView.scrollIndicatorInsets = insets;
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    NSNumber* duration = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
+    NSNumber* curve = notification.userInfo[UIKeyboardAnimationCurveUserInfoKey];
+    [UIView animateWithDuration:duration.floatValue
+                          delay:0
+                        options:curve.integerValue << 16
+                     animations:^{
+                         CGRect b = self.scrollView.bounds;
+                         b.origin = self->_oldOffset;
+                         self.scrollView.bounds = b;
+                         self.scrollView.scrollIndicatorInsets =
+                                 self->_oldIndicatorInset;
+                         self.scrollView.contentInset =
+                                 self->_oldContentInset;
+                     } completion:nil];
 }
 
 #pragma mark - Actions
