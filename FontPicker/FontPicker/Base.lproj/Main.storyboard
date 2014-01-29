@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Pwr-hH-dp3"/>
+                        <viewControllerLayoutGuide type="bottom" id="gvH-az-0TO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zE7-OL-lOs">
+                                <rect key="frame" x="20" y="28" width="280" height="349"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fmn-2t-BDu">
+                                <rect key="frame" x="0.0" y="385" width="320" height="183"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R3c-dA-fvh">
+                                        <rect key="frame" x="-80" y="11" width="480" height="162"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="vXZ-lx-hvc" id="9ak-Oe-L25"/>
+                                            <outlet property="delegate" destination="vXZ-lx-hvc" id="nWS-OI-1wp"/>
+                                            <outletCollection property="gestureRecognizers" destination="myM-Uc-fTA" appends="YES" id="EdS-d5-Eh6"/>
+                                        </connections>
+                                    </pickerView>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="enter text" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y55-hv-Vb0">
+                                        <rect key="frame" x="20" y="10" width="280" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="vXZ-lx-hvc" id="Igd-Df-RNI"/>
+                                        </connections>
+                                    </textField>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="17" minValue="17" maxValue="40" translatesAutoresizingMaskIntoConstraints="NO" id="nds-Uy-pkN" userLabel="Size Slider">
+                                        <rect key="frame" x="18" y="95" width="284" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="textSizeChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="9O9-TE-K9I"/>
+                                        </connections>
+                                    </slider>
+                                    <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RaS-nj-Ski" userLabel="Font Label">
+                                        <rect key="frame" x="118" y="48" width="85" height="42"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                        <nil key="highlightedColor"/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="cGV-cM-j5i" appends="YES" id="Ese-Cp-i6b"/>
+                                        </connections>
+                                    </label>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="aBM-n6-tjP" userLabel="Alpha Slider">
+                                        <rect key="frame" x="18" y="138" width="284" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="textAlphaChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="8qB-84-JEz"/>
+                                        </connections>
+                                    </slider>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.91705787149999995" blue="0.98960461089999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerY" secondItem="R3c-dA-fvh" secondAttribute="centerY" id="8X5-ta-blG"/>
+                                    <constraint firstItem="nds-Uy-pkN" firstAttribute="top" secondItem="fmn-2t-BDu" secondAttribute="top" constant="95" id="9xC-ct-r52"/>
+                                    <constraint firstItem="nds-Uy-pkN" firstAttribute="leading" secondItem="fmn-2t-BDu" secondAttribute="leading" constant="20" id="AJ8-KN-bp2"/>
+                                    <constraint firstItem="Y55-hv-Vb0" firstAttribute="top" secondItem="fmn-2t-BDu" secondAttribute="top" constant="10" id="EjN-hE-iEI"/>
+                                    <constraint firstAttribute="trailing" secondItem="Y55-hv-Vb0" secondAttribute="trailing" constant="20" id="FYb-g1-o8G"/>
+                                    <constraint firstAttribute="trailing" secondItem="nds-Uy-pkN" secondAttribute="trailing" constant="20" id="OFq-dN-Kbo"/>
+                                    <constraint firstAttribute="trailing" secondItem="aBM-n6-tjP" secondAttribute="trailing" constant="20" id="PIQ-Ew-L9Z"/>
+                                    <constraint firstItem="RaS-nj-Ski" firstAttribute="top" secondItem="Y55-hv-Vb0" secondAttribute="bottom" constant="10" id="Qrj-sR-SR7"/>
+                                    <constraint firstItem="Y55-hv-Vb0" firstAttribute="leading" secondItem="fmn-2t-BDu" secondAttribute="leading" constant="20" id="WZc-Ca-EDl"/>
+                                    <constraint firstItem="aBM-n6-tjP" firstAttribute="leading" secondItem="fmn-2t-BDu" secondAttribute="leading" constant="20" id="gkr-kZ-HLQ"/>
+                                    <constraint firstAttribute="centerX" secondItem="R3c-dA-fvh" secondAttribute="centerX" id="hFU-hs-Uld"/>
+                                    <constraint firstAttribute="height" constant="183" id="mPe-zl-I33"/>
+                                    <constraint firstItem="aBM-n6-tjP" firstAttribute="top" secondItem="nds-Uy-pkN" secondAttribute="bottom" constant="10" id="rgn-ux-nMi"/>
+                                    <constraint firstAttribute="centerX" secondItem="RaS-nj-Ski" secondAttribute="centerX" id="vRb-gv-ZWQ"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="zE7-OL-lOs" secondAttribute="trailing" constant="20" symbolic="YES" id="1Dz-0a-LqL"/>
+                            <constraint firstItem="zE7-OL-lOs" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" symbolic="YES" id="7kw-eo-CF2"/>
+                            <constraint firstItem="gvH-az-0TO" firstAttribute="top" secondItem="fmn-2t-BDu" secondAttribute="bottom" id="FTy-OO-lnD"/>
+                            <constraint firstItem="zE7-OL-lOs" firstAttribute="top" secondItem="Pwr-hH-dp3" secondAttribute="bottom" constant="20" symbolic="YES" id="Hga-oP-6kY"/>
+                            <constraint firstItem="fmn-2t-BDu" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="VFN-QV-gsA"/>
+                            <constraint firstAttribute="trailing" secondItem="fmn-2t-BDu" secondAttribute="trailing" id="e1l-Gc-nTc"/>
+                            <constraint firstItem="fmn-2t-BDu" firstAttribute="top" secondItem="zE7-OL-lOs" secondAttribute="bottom" constant="8" id="lxg-dn-Ojd"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="fontNameLabel" destination="RaS-nj-Ski" id="EWL-qt-Fwf"/>
+                        <outlet property="fontNameLabelTopConstraint" destination="Qrj-sR-SR7" id="4z9-Al-Nrc"/>
+                        <outlet property="fontPicker" destination="R3c-dA-fvh" id="Dwa-fB-adJ"/>
+                        <outlet property="sizeSilderTopConstraint" destination="9xC-ct-r52" id="hC5-E8-Dqz"/>
+                        <outlet property="textAlphaSlider" destination="aBM-n6-tjP" id="NEr-6F-gY7"/>
+                        <outlet property="textField" destination="Y55-hv-Vb0" id="lVD-ee-GmZ"/>
+                        <outlet property="textFieldTopConstraint" destination="EjN-hE-iEI" id="1YA-fo-K3e"/>
+                        <outlet property="textLabel" destination="zE7-OL-lOs" id="JRf-Mw-IXg"/>
+                        <outlet property="textSizeSlider" destination="nds-Uy-pkN" id="Bc1-un-sjO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="cGV-cM-j5i">
+                    <connections>
+                        <action selector="tapFontNameLabel:" destination="vXZ-lx-hvc" id="ax8-eM-FMj"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="myM-Uc-fTA">
+                    <connections>
+                        <action selector="tapFontPicker:" destination="vXZ-lx-hvc" id="99b-yK-PFU"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
