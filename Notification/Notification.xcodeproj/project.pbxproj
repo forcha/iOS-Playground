@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		58C50C1C72127136D5E3BA85 /* AHCNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 58C508D0E48271A38478A392 /* AHCNotification.m */; };
 		B00AE75C1899B8F70096871A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00AE75B1899B8F70096871A /* Foundation.framework */; };
 		B00AE75E1899B8F70096871A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00AE75D1899B8F70096871A /* CoreGraphics.framework */; };
 		B00AE7601899B8F70096871A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00AE75F1899B8F70096871A /* UIKit.framework */; };
@@ -35,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		58C5041FDB6D025F0C1AF42D /* AHCNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHCNotification.h; sourceTree = "<group>"; };
+		58C508D0E48271A38478A392 /* AHCNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHCNotification.m; sourceTree = "<group>"; };
 		B00AE7581899B8F70096871A /* Notification.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notification.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B00AE75B1899B8F70096871A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B00AE75D1899B8F70096871A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -121,6 +124,8 @@
 				B00AE7711899B8F70096871A /* ViewController.m */,
 				B00AE7731899B8F70096871A /* Images.xcassets */,
 				B00AE7621899B8F70096871A /* Supporting Files */,
+				58C5041FDB6D025F0C1AF42D /* AHCNotification.h */,
+				58C508D0E48271A38478A392 /* AHCNotification.m */,
 			);
 			path = Notification;
 			sourceTree = "<group>";
@@ -256,6 +261,7 @@
 				B00AE7721899B8F70096871A /* ViewController.m in Sources */,
 				B00AE76C1899B8F70096871A /* AppDelegate.m in Sources */,
 				B00AE7681899B8F70096871A /* main.m in Sources */,
+				58C50C1C72127136D5E3BA85 /* AHCNotification.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
