@@ -91,7 +91,8 @@ static const CGFloat kExtraSpace = 50.0f;
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _notificationHeight = 100.0f;
+        //FIXME: use topLayoutGuide
+        _notificationHeight = 44.0f + 20.0f;
         _notificationDuration = 1.5f;
         _notificationAnimationDuration = 0.25f;
         self.notifications = [NSMutableArray new];
