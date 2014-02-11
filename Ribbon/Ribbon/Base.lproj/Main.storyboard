@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vf6-Be-QFZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="zYM-dO-MVM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eBD-ny-Tnb">
+                                <rect key="frame" x="20" y="20" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="dXC-nQ-Etj"/>
+                                </connections>
+                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3qV-9v-lER">
+                                <rect key="frame" x="20" y="58" width="280" height="490"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="3qV-9v-lER" firstAttribute="top" secondItem="eBD-ny-Tnb" secondAttribute="bottom" constant="8" id="3j4-Cy-kyZ"/>
+                            <constraint firstAttribute="trailing" secondItem="eBD-ny-Tnb" secondAttribute="trailing" constant="20" id="46k-cn-wRT"/>
+                            <constraint firstItem="eBD-ny-Tnb" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="53A-QT-Y7B"/>
+                            <constraint firstItem="3qV-9v-lER" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="UCD-Wv-cdi"/>
+                            <constraint firstAttribute="trailing" secondItem="3qV-9v-lER" secondAttribute="trailing" constant="20" id="ZF3-wP-baM"/>
+                            <constraint firstItem="zYM-dO-MVM" firstAttribute="top" secondItem="3qV-9v-lER" secondAttribute="bottom" constant="20" id="whc-eA-SpX"/>
+                            <constraint firstItem="eBD-ny-Tnb" firstAttribute="top" secondItem="vf6-Be-QFZ" secondAttribute="bottom" id="zBf-fi-rGC"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="container" destination="3qV-9v-lER" id="AEb-dq-GMq"/>
+                        <outlet property="textField" destination="eBD-ny-Tnb" id="QSG-hK-qm9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
