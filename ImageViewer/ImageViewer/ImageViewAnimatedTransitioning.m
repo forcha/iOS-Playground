@@ -8,63 +8,94 @@
 
 #import "ImageViewAnimatedTransitioning.h"
 
+
+@interface ImageViewAnimatedTransitioning ()
+
+@property (strong, nonatomic) UIImageView * originalImageView;
+
+@end
+
 @implementation ImageViewAnimatedTransitioning
+
+- (instancetype)init {
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:@"Must use initWithImageView: instead."
+                                 userInfo:nil];
+}
+
+- (instancetype)initWithImageView:(UIImageView *)imageView {
+    NSParameterAssert(imageView != nil);
+    self = [super init];
+    if (self) {
+        self.originalImageView = imageView;
+    }
+
+    return self;
+}
 
 #pragma mark - UIViewControllerAnimatedTransitioning
 
 static const float kDuration = 0.25f;
 
--(NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
+static const NSInteger kSnapshotTag = 12345;
+
+- (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
     return kDuration;
 }
 
--(void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
-    NSLog(@"ImageViewController animateTransition");
+- (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
     UIViewController* vc1 = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController* vc2 = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView* con = [transitionContext containerView];
+    UIView*containerView = [transitionContext containerView];
     UIView* v1 = vc1.view;
     UIView* v2 = vc2.view;
-    
-    NSLog(@"v1 = %@", v1);
-    NSLog(@"v2 = %@", v2);
-    NSLog(@"con subviews = %@", [con subviews]);
-    
+    CGRect originalImageViewFrame = [self.originalImageView convertRect:self.originalImageView.bounds toView:containerView];
+
     if (self.isPresenting) {
-        v2.frame = con.bounds;
-        v2.alpha = 0.0;
-        CGAffineTransform scale = CGAffineTransformMakeScale(0.5,0.5);
-        v2.transform = CGAffineTransformConcat(scale, v2.transform);
-        [con addSubview: v2];
-        v1.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
-        
-        UIView * mainView = [[v1 subviews] firstObject];
-        
+        UIView *presentingViewControllerSnapshot = [v1 snapshotViewAfterScreenUpdates:NO];
+        presentingViewControllerSnapshot.tag = kSnapshotTag;
+        [containerView addSubview:presentingViewControllerSnapshot];
+
+        UIImageView * animatedImageView = [[UIImageView alloc] initWithImage:self.originalImageView.image];
+        animatedImageView.contentMode = UIViewContentModeScaleAspectFit;
+        animatedImageView.frame = originalImageViewFrame;
+        [containerView addSubview:animatedImageView];
+
+        v1.hidden = YES;
+
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
         [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
-            v2.alpha = 1.0;
-            v2.transform = CGAffineTransformConcat(CGAffineTransformInvert(scale), v2.transform);
-            
-            mainView.alpha = 0.4;
-            mainView.transform = CGAffineTransformConcat(CGAffineTransformMakeScale(.9, .9), mainView.transform);
+            animatedImageView.frame = containerView.bounds;
+            presentingViewControllerSnapshot.alpha = 0.4;
+            presentingViewControllerSnapshot.transform = CGAffineTransformConcat(CGAffineTransformMakeScale(.9, .9), presentingViewControllerSnapshot.transform);
         } completion:^(BOOL finished) {
-            NSLog(@"completion before");
+            [animatedImageView removeFromSuperview];
+            v2.frame = containerView.bounds;
+            [containerView addSubview:v2];
             [transitionContext completeTransition:YES];
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-            NSLog(@"completion after");
         }];
     } else {
-        UIView * mainView = [[v2 subviews] firstObject];
-        
+        UIView *presentingViewControllerSnapshot = [containerView viewWithTag:kSnapshotTag];
+        UIView *zoomedImageView = [v1 viewWithTag:998];
+        CGRect zoomedImageViewFrame = [zoomedImageView convertRect:zoomedImageView.bounds toView:containerView];
+
+        UIImageView * animatedImageView = [[UIImageView alloc] initWithImage:self.originalImageView.image];
+        animatedImageView.contentMode = UIViewContentModeScaleAspectFit;
+        animatedImageView.frame = zoomedImageViewFrame;
+        [containerView addSubview:animatedImageView];
+        [v1 removeFromSuperview];
+
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
         [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
-            v1.alpha = 0.0;
-            v1.transform = CGAffineTransformScale(v1.transform,0.5,0.5);
-            
-            mainView.alpha = 1.0;
-            mainView.transform = CGAffineTransformConcat(CGAffineTransformInvert(CGAffineTransformMakeScale(.9, .9)), mainView.transform);
+            animatedImageView.frame = originalImageViewFrame;
+
+            presentingViewControllerSnapshot.alpha = 1.0;
+            presentingViewControllerSnapshot.transform = CGAffineTransformConcat(CGAffineTransformInvert(CGAffineTransformMakeScale(.9, .9)), presentingViewControllerSnapshot.transform);
         } completion:^(BOOL finished) {
-            [v1 removeFromSuperview];
+            [presentingViewControllerSnapshot removeFromSuperview];
+            [animatedImageView removeFromSuperview];
+            v2.hidden = NO;
             [transitionContext completeTransition:YES];
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
         }];

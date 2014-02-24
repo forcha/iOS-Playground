@@ -60,17 +60,6 @@ static const float kRotationAnimationDuration = 0.25;
     }
 }
 
-- (void)updateViewConstraints {
-    [super updateViewConstraints];
-    NSLog(@"updateViewContraints");
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }

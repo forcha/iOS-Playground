@@ -12,4 +12,6 @@
 
 @property (nonatomic, assign, getter = isPresenting) BOOL presenting;
 
+- (instancetype)initWithImageView:(UIImageView *)imageView;
+
 @end

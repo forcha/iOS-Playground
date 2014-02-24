@@ -8,15 +8,13 @@
 
 #import "MainViewController.h"
 #import "ImageViewController.h"
-#import "ImageViewTransitioningDelegate.h"
+#import "ImageViewAnimatedTransitioning.h"
 
-@interface MainViewController ()
+@interface MainViewController () <UIViewControllerTransitioningDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *mainView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-
-@property (strong, nonatomic) ImageViewTransitioningDelegate * imageViewTD;
 
 @end
 
@@ -47,24 +45,25 @@
                   initWithTarget:self
                   action:@selector(panImage:)];
     [_imageView addGestureRecognizer:panGR];
-
-    self.imageViewTD = [ImageViewTransitioningDelegate new];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
 }
 
-//- (BOOL)prefersStatusBarHidden {
-//    NSLog(@"main prefersStatusBarHidden called");
-//    return NO;
-//}
+#pragma mark - UIViewControllerTransitioningDelegate
+
+-(id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    ImageViewAnimatedTransitioning * animator = [[ImageViewAnimatedTransitioning alloc] initWithImageView:self.imageView];
+    animator.presenting = YES;
+    return animator;
+}
+
+-(id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    ImageViewAnimatedTransitioning * animator = [[ImageViewAnimatedTransitioning alloc] initWithImageView:self.imageView];
+    animator.presenting = NO;
+    return animator;
+}
 
 #pragma mark - Action
 
@@ -72,11 +71,9 @@
     ImageViewController * vc = [ImageViewController new];
     vc.modalPresentationStyle = UIModalPresentationCustom;
     vc.modalPresentationCapturesStatusBarAppearance = YES;
-    vc.transitioningDelegate = _imageViewTD;
+    vc.transitioningDelegate = self;
     vc.imageToDisplay = _imageView.image;
-    [self presentViewController:vc animated:YES completion:^{
-        NSLog(@"finished presenting VC");
-    }];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)panImage:(UIPanGestureRecognizer *)gr {
